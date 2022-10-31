@@ -1,0 +1,143 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 11} \\
+\textbf{11/19/2021} \\ 
+
+\textbf{Problem 1} \\
+\textbf{part i.} \\
+See Jupyter notebook for code and results. 
+\\
+
+\textbf{part ii.} \\
+See Jupyter notebook for code and results. \\
+\\
+
+
+\textbf{Problem 2} \\
+\textbf{part a} \\
+Heun's method states
+\begin{equation*}
+y_{k+1} = y_k + \frac{h}{2}(f(x_k, y_k) + f(x_{k+1}, y_k+hf(x_k, y_k)))
+\end{equation*}
+Since $f(x, y(x)) = \lambda y(x)$, 
+\begin{align*}
+f(x_k, y_k) &= \lambda y_k \\
+f(x_{k+1}, y_k+hf(x_k, y_k)) &= f(x_{k+1}, y_k + h\lambda y_k)) \\
+f(x_{k+1}, y_k+hf(x_k, y_k)) &= \lambda (y_k + h\lambda y_k) \\
+y_{k+1} &= y_k + \frac{h}{2}(\lambda y_k + \lambda (y_k + h\lambda y_k)) \\
+y_{k+1} &= y_k + \frac{h\lambda}{2}y_k + \frac{h\lambda}{2}y_k + \frac{h^2\lambda^2}{2}\lambda y_k \\
+y_{k+1} &= y_k(1 + h\lambda + \frac{h^2\lambda^2}{2}\lambda)
+\end{align*}
+\\
+
+\textbf{part b} \\
+The fourth order Runge-Kutta method is
+\begin{align*}
+Y_1 &= y_k \\
+Y_2 &= y_k + \frac{h}{2}f(x_k, Y_1) \\
+Y_3 &= y_k + \frac{h}{2}f(x_i + \frac{h}{2}, Y_2) \\
+Y_4 &= y_k + hf(x_k+\frac{h}{2}, Y_3) \\
+y_{k+1} &= y_k + \frac{h}{6}\left(f(x_k, Y_1) + 2f(x_i+\frac{h}{2}, Y_2), +2f(x_k+\frac{h}{2}, Y_3)+f(x_{k+1}, Y_4)\right)
+\end{align*}
+Using the fact that $f(x, y(x)) = \lambda y(x)$, 
+\begin{align*}
+Y_1 &= y_k \\
+Y_2 &= y_k + \frac{h}{2}\lambda y_k \\
+Y_3 &= y_k + \frac{h}{2}f(x_i + \frac{h}{2}, y_k + \frac{h}{2}\lambda y_k) \\
+Y_3 &= y_k + \frac{h}{2}\lambda y_k + \frac{h^2 \lambda^2}{4} y_k \\
+Y_4 &= y_k + hf(x_k+\frac{h}{2}, y_k + \frac{h}{2}\lambda y_k + \frac{h^2 \lambda^2}{4} y_k) \\
+Y_4 &= y_k + h\lambda y_k + \frac{h^2 \lambda^2}{2}y_k + \frac{h^3 \lambda^3}{4}y_k \\
+y_{k+1} &= y_k + \frac{h}{6}\left(\lambda Y_1 + 2\lambda Y_2 + 2\lambda Y_3 + \lambda Y_4\right) \\
+y_{k+1} &= y_k \left(h\lambda + \frac{1}{2}h^2 \lambda^2 + \frac{1}{6}h^3 \lambda^3 + \frac{1}{24}h^4 \lambda^4 \right)
+\end{align*}
+\\
+
+\textbf{part c} \\
+Taylor series of the point $x_{k+1}$ expanded around $x_k$:
+\begin{equation*}
+y(x_{k+1}) = y(x_k+h) = y(x_k) + h y'(x_k) + \frac{h^2}{2}y''(x_k) + \frac{h^3}{6}y'''(x_k) +  \frac{h^4}{24}y''''(x_k) + \hdots
+\end{equation*}
+For the case $y'(x, y(x))=\lambda y(x)$, 
+\begin{equation*}
+y(x_{k+1}) = y(x_k+h) = y(x_k) + h \lambda y(x_k) + \frac{\lambda^2 h^2}{2}y(x_k) + \frac{\lambda^3 h^3}{6}y(x_k) +  \frac{\lambda^4 h^4}{24}y(x_k) + \hdots
+\end{equation*}
+Thus the Heun's method results in the second order Taylor series of $x_{k+1}$ expanded around $x_k$, and the fourth order Runge-Kutta method results in the fourth order Taylor series around the same point. \\
+
+\textbf{part d} \\
+See Jupyter notebook for code and results. \\
+\\
+
+
+\textbf{Problem 3} \\
+
+\textbf{part a} \\
+\begin{align*}
+\frac{dy(x)}{dx} &= 4x - 2y(x) \\
+x &\in [0,1] \\
+y(0) &= 0
+\end{align*}
+Using the integrating factor $\phi(x) = e^{2x}$,
+\begin{align*}
+e^{2x}\frac{dy(x)}{dx} + 2e^{2x}y(x) &= e^{2x}4x \\
+\frac{d}{dx}(e^{2x} y(x)) = e^{2x}4x \\
+e^{2x} y(x) = \int e^{2x}4x dx \\
+e^{2x} y(x) = 2x\,e^{2x} -e^{2x} + C\\
+0 = y(0) = -1 + C \\
+C = 1 \\
+e^{2x} y(x) = 2x\,e^{2x} -e^{2x} + 1\\
+y(x) = 2x - 1 + e^{-2x} \\
+\end{align*}
+\\
+
+\textbf{part b} \\
+See Jupyter notebook for code and results.  
+\\
+
+\textbf{part c} \\
+See Jupyter notebook for code and results.  
+\\
+
+\textbf{part d} \\
+See Jupyter notebook for code and results.  
+\\
+
+
+\textbf{Problem 4} \\
+\begin{equation*}
+T_k = \frac{y(x_{k+1})-y(x_k)}{h} - \frac{1}{2}(f(x_k, y(x_k)) + y(x_{k+1}, y_{k+1})) 
+\end{equation*}
+Using Taylor series expansion,
+\begin{align*}
+y(x_{k+1}) &= y(x_k+h) = y(x_k) + h y'(x_k) + \frac{h^2}{2}y''(x_k) + \frac{h^3}{6}y'''(\zeta_1) \\
+y(x_{k+1}) -y(x_k) &=  h y'(x_k) + \frac{h^2}{2}y''(x_k) + \frac{h^3}{6}y'''(\zeta_1)
+\end{align*}
+and also using Taylor expansion
+\begin{align*}
+f(x_{k+1}, y_{k+1}) &= y'(x_{k+1})= y'(x_{k}+h) \\
+f(x_{k+1}, y_{k+1}) &= y'(x_k) + hy''(x_k) + \frac{h^2}{2}y'''(\zeta_2)
+\end{align*}
+Combining these gives
+\begin{align*}
+T_k &= \frac{h y'(x_k) + \frac{h^2}{2}y''(x_k) + \frac{h^3}{6}y'''(\zeta_1)}{h} - \frac{1}{2}(f(x_k, y(x_k)) + y'(x_k) + hy''(x_k) + \frac{h^2}{2}y'''(\zeta_2)) \\
+T_k &= y'(x_k) + \frac{h}{2}y''(x_k) + \frac{h^2}{6}y'''(\zeta_1) - y'(x_k) - \frac{h}{2}y''(x_k) - \frac{h^2}{4}y'''(\zeta_2) \\
+T_k &= \frac{h^2}{6}y'''(\zeta_1) - \frac{h^2}{4}y'''(\zeta_2)
+\end{align*}
+Thus the truncation error of the trapezoid rule is order 2.
+\\
+
+
+
+
+
+\end{document} % This is the end of the document
+
+

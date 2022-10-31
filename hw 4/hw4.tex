@@ -1,0 +1,174 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 4} \\
+\textbf{9/22/2021} \\ 
+
+\textbf{Problem 1} \\
+\textbf{part a}
+\begin{equation*}
+\boldsymbol{G^T G} = \begin{bmatrix} g_1^T \\ g_2^T \\ \ldots \\ g_m^T \end{bmatrix} \begin{bmatrix} g_1 & g_2 & \ldots & g_m \end{bmatrix}
+\end{equation*}
+where $g_1, g_2, \ldots, g_m$ are the columns of $\boldsymbol{G}$.  Then
+\begin{equation*}
+\boldsymbol{G^T G} = \begin{bmatrix} g_1^T g_1 & g_1^T g_2 & \ldots & g_1^T g_m \\ g_2^T g_1 & g_2^T g_2 & \ldots & g_2^T g_m\\ \ldots & \ldots & \ldots & \ldots \\ g_m^T g_1 & g_m^T g_2 & \ldots & g_m^T g_m \end{bmatrix}
+\end{equation*}
+and for a given element $q_a,b \in \boldsymbol{G^T G}$, for any $a, b \neq j, k$, 
+\begin{equation*}
+q_{a, b} = \left\{\begin{array}{cl}1,& a = b \\
+			0,& a \neq b \end{array}\right.
+\end{equation*}
+Also for any element $a \neq j, k$, $q_{a,j} = 0$, $q_{a, k} = 0$ and any element $b \neq j, k$, $q_{j, b} = 0$, $q_{k,b} = 0$.  Finally, 
+\begin{equation*}
+q_{j, j} = q_{k,k} = cos^2(\theta)+sin^2(\theta) = 1
+\end{equation*}
+\begin{equation*}
+q_{j, k} = q_{k, j} = cos(\theta)sin(\theta) - cos(\theta)sin(\theta) = 0
+\end{equation*}
+Combining all of this together gives
+\begin{equation*}
+q_{a, b} = \left\{\begin{array}{cl}1,& a = b \\
+			0,& a \neq b \end{array}\right. = \boldsymbol{I}
+\end{equation*}
+$\boldsymbol{G^TG} = \boldsymbol{I}$ so a Givens rotation is orthogonal.
+\\
+
+\textbf{part b} \\
+Consider a matrix $A \in \mathbb{R}^{2x2}$ where 
+\begin{equation*}
+\boldsymbol{A} = \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+\end{equation*}
+and Givens rotation matrix 
+\begin{equation*}
+\boldsymbol{G} = \begin{bmatrix} \mbox{cos}(\theta) & \mbox{sin}(\theta) \\ -\mbox{sin}(\theta) & \mbox{cos}(\theta) \end{bmatrix}
+\end{equation*}
+If we want to use a Givens rotation to make $A$ upper triangular, then we want
+\begin{equation*}
+(GA)_{1,2} = -a \mbox{ sin}(\theta) + c \mbox{ cos}(\theta) = 0
+\end{equation*}
+\begin{equation*}
+a \mbox{ sin}(\theta) = c \mbox{ cos}(\theta)
+\end{equation*}
+\begin{equation*}
+\theta = \mbox{arctan}(c/a)
+\end{equation*}
+In a similar way, we can use Givens rotations to zero out all the lower elements of a generic matrix $\boldsymbol{A} \in \mathbb{R}^{nxn}$.  For every element in $a_{i}$ below the diagonal of $\boldsymbol{A}$, a matrix $\boldsymbol{G_j}$ can be formed such that $\boldsymbol{A_j} = \boldsymbol{G_j A}$ and $(A_j)_i = 0$.  Repeat this for every subdiagonal element and then combine the $G$ matrices such that
+\begin{equation*}
+G = \prod_{i=1}^n \boldsymbol{G_i}
+\end{equation*}
+where each $\boldsymbol{G_i}$ is a Givens rotation that zeros out one of the $n$ subdiagonal elements of $\boldsymbol{A}$.  Then
+\begin{equation*}
+\boldsymbol{GA} = (\boldsymbol{G_n} \ldots \boldsymbol{G_2 G_1}) \boldsymbol{A} = \boldsymbol{R}
+\end{equation*}
+which is upper triangular.  Also, as shown in part a, Givens rotations are orthogonal so 
+\begin{equation*}
+\boldsymbol{G^T GA} = \boldsymbol{G^T R}
+\end{equation*}
+and finally
+\begin{equation*}
+\boldsymbol{A} = \boldsymbol{G^T R} = \boldsymbol{QR}
+\end{equation*}
+One Givens rotation will be needed for each subdiagonal element.  When $n \leq m$, this will be the $(n-1)$th triangular number, which can be found as $\frac{1}{2}(n^2 - n)$.  When $m > n$, we will have require the same number as in the previous case plus an additional $(m-n)$ rows of length $n$.  Combining these yields the number of Givens rotations, $i$, as
+\begin{equation*}
+i = \left\{\begin{array}{cl}\frac{n}{2}(n-1),& n \leq m \\
+			\frac{n}{2}(n-1) + (m-n)n,& m > n \end{array}\right. 
+\end{equation*}
+As shown above,
+\begin{equation*}
+\boldsymbol{A} = \boldsymbol{G^T R} = \boldsymbol{QR}
+\end{equation*}
+so
+\begin{equation*}
+\boldsymbol{Q} = \boldsymbol{G^T}
+\end{equation*}
+
+\textbf{part c} \\
+See Jupyter notebook for implementation and output.
+\\
+\\
+
+
+\textbf{Problem 2} \\
+$x+(y+z)=(x+y)+z$ does not hold in floating point arithmetic due to the rounding that takes place at each step.  For example, if 
+\begin{align*}
+&\bar{x}=5.112 \\
+&\bar{y}=5.112 \\
+&\bar{z}=5.113 \\
+&\mbox{fl}(\mbox{fl}(\bar{x}+\bar{y}) + \bar{z}) = \mbox{fl}(\mbox{fl}(10.224) + 5.113) = \mbox{fl}(1.022 * 10^1 + 5.113) = \mbox{fl}(15.333) = 1.533 * 10^1 \\
+&\mbox{fl}(\bar{x}+\mbox{fl}(\bar{y} + \bar{z})) = \mbox{fl}(5.112 + \mbox{fl}(10.225)) = \mbox{fl}(5.112 + 1.023 * 10^1) = \mbox{fl}(15.342) = 1.534 * 10^1
+\end{align*}
+ \\
+
+
+\textbf{Problem 3} \\
+\textbf{part i} \\
+\begin{align*}
+\sigma &= [\frac{1}{n-1}\sum_{i=1}^n(x_i-\bar{x})^2]^{1/2} \\
+  &= [\frac{1}{n-1}\sum_{i=1}^n(x_i^2-2\bar{x}x_i + \bar{x}^2)]^{1/2} \\
+  &= [\frac{1}{n-1}(\sum_{i=1}^nx_i^2-\sum_{i=1}^n 2\bar{x}x_i + \sum_{i=1}^n\bar{x}^2)]^{1/2} \\
+  &= [\frac{1}{n-1}(\sum_{i=1}^nx_i^2-2\bar{x}\frac{n}{n}\sum_{i=1}^n x_i + n \bar{x}^2)]^{1/2} \\
+  &= [\frac{1}{n-1}(\sum_{i=1}^nx_i^2-2\bar{x}n\bar{x} + n \bar{x}^2)]^{1/2} \\
+  &= [\frac{1}{n-1}(\sum_{i=1}^nx_i^2- n\bar{x}^2)]^{1/2} \\
+\end{align*}
+
+\textbf{part ii}
+See Jupyter notebook for code and results.
+\\
+
+
+\textbf{Problem 4} \\
+\textbf{part i} 
+\begin{align*}
+A1 &= \mbox{fl}(4 * \mbox{fl}(\mbox{fl}(\pi) * \mbox{fl}(\mbox{fl}(r)*\mbox{fl}(r)))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(\mbox{fl}(3.142) * \mbox{fl}(\mbox{fl}(6370)*\mbox{fl}(6370)))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * \mbox{fl}(6.370 * 10^3 *6.370* 10^3))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * \mbox{fl}(40,576,900))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * 4.058 * 10^7)) \\
+  &= \mbox{fl}(4 * \mbox{fl}(127,502,360)) \\
+  &= \mbox{fl}(4 * 1.275 * 10^8) \\
+  &= \mbox{fl}(510,000,000) \\
+  &= 5.100 * 10^8
+\end{align*}
+
+\textbf{part ii} 
+\begin{align*}
+A2 &= \mbox{fl}(4 * \mbox{fl}(\mbox{fl}(\pi) * \mbox{fl}(\mbox{fl}(r)*\mbox{fl}(r)))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(\mbox{fl}(3.142) * \mbox{fl}(\mbox{fl}(6371)*\mbox{fl}(6371)))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * \mbox{fl}(6.371 * 10^3 *6.371* 10^3))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * \mbox{fl}(40,589,641))) \\
+  &= \mbox{fl}(4 * \mbox{fl}(3.142 * 4.059 * 10^7)) \\
+  &= \mbox{fl}(4 * \mbox{fl}(127,533,780)) \\
+  &= \mbox{fl}(4 * 1.275 * 10^8) \\
+  &= \mbox{fl}(510,000,000) \\
+  &= 5.100 * 10^8
+\end{align*}
+\begin{equation*}
+A2 - A1 = \mbox{fl}(5.100 * 10^8 - 5.100 * 10^8) = \mbox{fl}(0) = 0
+\end{equation*}
+
+\textbf{part iii} \\
+\begin{align*}
+\frac{d}{dr} A &= \mbox{fl}(8 \mbox{fl}(\pi r)) \\
+ &= \mbox{fl}(8 \mbox{fl}(3.142 * 6.370*10^3)) \\
+ &= \mbox{fl}(8 \mbox{fl}(20,014.54)) \\
+ &= \mbox{fl}(8 * 2.001 * 10^4)) \\
+ &= \mbox{fl}(160,080)) \\
+ &= 1.601*10^5
+\end{align*}
+
+\textbf{part iv} \\
+Part iii is more accurate. \\
+
+\textbf{part v} \\ 
+Part iii is more accurate because it is computing the difference directly.  Part i and ii are the same in floating point arithmetic because the magnitude of the areas is much greater than the difference between them, so when the result of part i is subtracted from the result of part ii, catastrophic cancellation occurs.  If floating point arithmetic with a longer mantissa is used, the difference between parts i and ii will be more accurate.
+
+\end{document} % This is the end of the document
+
+

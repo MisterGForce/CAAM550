@@ -1,0 +1,162 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 7} \\
+\textbf{10/20/2021} \\ 
+
+\textbf{Problem 1} \\
+\textbf{part i} \\
+See Jupyter notebook for code and results.
+\\
+
+\textbf{part ii} \\
+The condition number of the normal equation (from Theorem 5.4.1) is $\kappa_2 (A^T A) = (\sigma_1 / \sigma_n)^2$.  The condition number of the least squares problem using QR decomposition (from theorem 7.6.2) is $\kappa_2 (A) = \sigma_1 / \sigma_n$.   In the charts, the condition number of each method is presented and it is clear that as $t_0$ increases, the condition number of both methods increase, but the condition number of the Normal equation increases much quicker than the condition number of the QR decomposition method. As a result the error of the normal solution method also grows quicker than the error when using the QR decomposition as $t_0$ increases.
+\\
+\\
+
+
+\textbf{Problem 2} \\
+\textbf{part i} \\
+Multiplying out the given matrices produces the linear set of equations
+\begin{align*}
+r + Ax = b \\
+A^T r = 0
+\end{align*}
+From the first equation then it is clear that $r = b - Ax$, so substituting into the second yields
+\begin{align*}
+A^T (b - Ax) = 0 \\
+A^T b - A^T A x = 0 \\
+A^T b = A^T A x
+\end{align*}
+which is the normal equation. The solution to the normal equation is also the solution to the linear least squares problem 
+\begin{equation*}
+\min_x||Ax - b||^2_2  
+\end{equation*}
+so therefore these 2 problems are equivalent.
+\\
+
+\textbf{part ii} \\
+Multiplying out the given matrices produces the linear set of equations
+\begin{align*}
+r + Ax = b \\
+A^T r = 0
+\end{align*}
+Using the first equation above,
+\begin{align*}
+r + Ax = b \\
+r = b - A P  P^{-1} x \\
+r = Q Q^T b - Q \begin{pmatrix} R \\ 0 \end{pmatrix} P^{-1}x \\
+r = Q[Q^T b - \begin{pmatrix} R \\ 0 \end{pmatrix} P^{-1}x] \\
+Q^T r = Q^T b - \begin{pmatrix} R \\ 0 \end{pmatrix} P^{-1}x 
+\end{align*}
+Let $y = P^{-1}x \in \mathbb{R}^n$, and $(Q^T r)_1, (Q^T b)_1 \in \mathbb{R}^n$ be the upper $n$ rows of $Q^T r$ and $Q^T b$ respectively, and similarly $(Q^T r)_2, (Q^T b)_2 \in \mathbb{R}^{m-n}$ be the last $m-n$ rows of $Q^T r$ and $Q^T b$ respectively.  Then
+\begin{equation*}
+\begin{bmatrix} (Q^T r)_1 \\ (Q^T r)_2 \end{bmatrix} = \begin{bmatrix} (Q^T b)_1 \\ (Q^T b)_2 \end{bmatrix} - \begin{pmatrix} R y \\ 0 \end{pmatrix} 
+\end{equation*}
+The top half of this equation can then be solved for $y$ using back substitution:
+\begin{equation*}
+Ry = (Q^T b)_1 - (Q^T r)_1
+\end{equation*}
+The solution $x$ can then be found as 
+\begin{equation*}
+x = Py
+\end{equation*}
+\\
+ 
+\textbf{part iii} \\
+Multiplying out the given matrices produces the linear set of equations
+\begin{align*}
+r + Ax = b \\
+A^T r = 0
+\end{align*}
+Using the first equation above,
+\begin{align*}
+r + Ax = b \\
+r = U U^T b - U \Sigma V^T x \\
+r = U (U^T b - \Sigma V^Tx)
+\end{align*}
+Let $z=V^T x$, then
+\begin{align*}
+U^T r = U^T b - \Sigma z \\
+\Sigma z = U^Tb - U^T r
+\end{align*}
+Because $\Sigma$ is a diagonal matrix, the components of $z$ can be found as 
+\begin{equation*}
+z_i = (U^T b - U^T r)_i
+\end{equation*}
+Then the solution $x$ can be found by calculating 
+\begin{equation*}
+x = Vz
+\end{equation*}
+\\
+
+
+\textbf{Problem 3} \\
+\textbf{part i} \\
+In the original problem, 
+\begin{align*}
+A \in \mathbb{R}^{m \times 2} = \begin{pmatrix} 1 & t_1 \\ 1 & t_2 \\ \vdots & \vdots \\ 1 & t_m \end{pmatrix} \\
+x \in \mathbb{R}^2 = \begin{pmatrix} x_1 \\ x_2 \end{pmatrix} \\
+b \in \mathbb{R}^m = \begin{pmatrix} b(t_1) \\ b(t_2) \\ \vdots \\ b(t_m) \end{pmatrix}
+\end{align*}
+In the quadratic fit least squares,
+\begin{align*}
+\tilde{A} \in \mathbb{R}^{m \times 3} = \begin{pmatrix} 1 & t_1 & t_1^2 \\ 1 & t_2 & t_2^2 \\ \vdots & \vdots & \vdots \\ 1 & t_m & t_m^2 \end{pmatrix} \\
+\tilde{x} \in \mathbb{R}^3 = \begin{pmatrix} x_1 \\ x_2 \\ x_3 \end{pmatrix} \\
+\tilde{b} \in \mathbb{R}^m = \begin{pmatrix} b(t_1) \\ b(t_2) \\ \vdots \\ b(t_m) \end{pmatrix}
+\end{align*}
+Therefore it is plain that the first 2 columns of $\tilde{A}$, $\tilde{A}_{1,2} = A$, and $\tilde{b} = b$.
+\\
+
+\textbf{part ii} \\
+Because the Householder Reflectors are computed using the columns of $A$ from left to right, the matrices $Q_1$ and $Q_2$ computed for $A$ are identical to the matrices $\tilde{Q_1}$ and $\tilde{Q_2}$ computed for $\tilde{A}$ and can be reused in the QR Decomposition of $\tilde{A}$.  Therefore only one additional Householder rotation is required to be calculated. \\
+
+\textbf{part iii} \\
+See Jupyter notebook for code and results. \\
+\\
+
+
+\textbf{Problem 4} \\
+\textbf{part i} \\
+See Jupyter notebook for code and results.
+\\
+
+\textbf{part ii} \\
+Define $A \in \mathbb{R}^{mk, n}$ as the block matrix
+\begin{equation*}
+A = \begin{bmatrix} H \exp(Bt_1) \\ H \exp(Bt_1) \\ \vdots \\ H \exp(Bt_m)\end{bmatrix} 
+\end{equation*}
+Then let $b$ be the stack of $z$ vectors
+\begin{equation*}
+b =  \begin{pmatrix} z_1 \\ z_2 \\ \vdots \\ z_m \end{pmatrix}
+\end{equation*}
+Then the solution $x$ of the least squares problem 
+\begin{equation*}
+\min_x ||Ax-b||_2
+\end{equation*}
+is the best estimate of $x_0$.
+\\
+
+\textbf{part iii} \\
+See Jupyter notebook for code and results.
+\\
+
+\textbf{part iv} \\
+See Jupyter notebook for code and results.
+\\
+
+\textbf{part v} \\
+(See Jupyter notebook for calculations.)  The largest singular value for the matrix $A$ is $\sigma_1 \approx 1.29$, and the smallest non-zero singular value is $sigma_{44} \approx \num{1.84e-14}$.  This leads to a very large conditioning number, $\kappa_2 \approx \num{6.99e12}$, which means that even a small error in the measurement data can lead to a very large error in the solution.    
+\\
+
+\end{document} % This is the end of the document
+
+

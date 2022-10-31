@@ -1,0 +1,211 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\setlength{\parindent}{0pt}
+\setcounter{MaxMatrixCols}{19}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 5} \\
+\textbf{9/29/2021} \\ 
+
+\textbf{Problem 1} \\
+\textbf{part i}
+\begin{equation*}
+I_n = \int_{0}^{1} x^n e^x dx
+\end{equation*}
+then
+\begin{equation*}
+I_{n+1} = \int_{0}^{1} x^{n+1} e^x dx
+\end{equation*}
+and using integration by parts gives
+\begin{align*}
+I_{n+1} &= x^{n+1}e^x \vert_0^1 - \int_0^1 (n+1) x^n e^x dx \\
+I_{n+1} &= e - (n+1) I_n \\
+\end{align*}
+Because the functions $x^n$ and $e^x$ are greater than 0 on the interval (0, 1],  
+\begin{equation*}
+I_n = \int_{0}^{1} x^n e^x dx > 0
+\end{equation*}
+for all $n$.  Similarly, on the interval (0, 1],  $x^n > x^{n+1}$, so 
+\begin{equation*}
+I_n = \int_{0}^{1} x^n e^x dx > \int_{0}^{1} x^{n+1} e^x dx = I_{n+1}
+\end{equation*}
+for all $n \geq 0$.  Combining the two results above yields
+\begin{equation*}
+I_1 > I_2 > \ldots > 0
+\end{equation*}
+
+\textbf{part ii} \\
+See Jupyter notebook for code and output. \\
+\\
+
+\textbf{part iii} \\
+Let the perturbed data be denoted by $I_n^*$, then
+\begin{align*}
+I_1^* &= I_1 + \epsilon \\
+I_2^* &= e - 2 I_1^* = e - 2 I_1 - 2\epsilon = I_2 - 2\epsilon \\
+I_3^* &= e - 3 I_2^* = e - 3 I_2 - 6\epsilon = I_3 - 6\epsilon \\
+\ldots \\
+I_n^* &= e - n I_{n-1}^* = e - n I_{n-1} - n!\epsilon = I_n - n!\epsilon \\
+\end{align*}
+So the perturbation grows at a factorial growth rate as $n$ increases, and is therefore ill-suited to solve the integral for large $n$. \\
+\\
+
+
+
+\textbf{Problem 2} \\
+\textbf{part i}
+\begin{align*}
+\boldsymbol{A}^{-1}\boldsymbol{A} = \begin{bmatrix} 
+1 & 0 & 0 & 0 & \cdots & 0 \\ 
+1 & 1 & 0 & 0 & \cdots & 0 \\
+1 & 0 & 1 & 0 & \cdots & 0 \\
+1 & 0 & 0 & 1 & \cdots & 0 \\
+\vdots &  & &  & \ddots &   \\ 
+1 & 0 & 0 & 0 & \cdots & 1 
+ \end{bmatrix}
+\begin{bmatrix} 
+1 & 0 & 0 & 0 & \cdots & 0 \\ 
+-1 & 1 & 0 & 0 & \cdots & 0 \\
+-1 & 0 & 1 & 0 & \cdots & 0 \\
+-1 & 0 & 0 & 1 & \cdots & 0 \\
+\vdots &  & &  & \ddots &   \\ 
+-1 & 0 & 0 & 0 & \cdots & 1 
+ \end{bmatrix}
+ =
+\begin{bmatrix} 
+1 & 0 & 0 & 0 & \cdots & 0 \\ 
+0 & 1 & 0 & 0 & \cdots & 0 \\
+0 & 0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 0 & 1 & \cdots & 0 \\
+\vdots &  & &  & \ddots &   \\ 
+0 & 0 & 0 & 0 & \cdots & 1 
+ \end{bmatrix}
+= \boldsymbol{I}
+\end{align*}
+
+\textbf{part ii} \\
+Because the 1-norm of a matrix is the maximum of the absolute column sums, and $||A||_1 = ||A^{-1}||_1 = n$.
+\begin{equation*}
+\kappa_1(A) = ||A||_1 ||A^{-1}||_1 = n^2
+\end{equation*}
+Because the infinity norm of a matrix is the maximum absolute row sum, $||A||_{\infty} = ||A^{-1}||_{\infty} = 2$.
+\begin{equation*}
+\kappa_{\infty}(A) = ||A||_{\infty} ||A^{-1}||_{\infty} = 4
+\end{equation*}
+
+
+\textbf{Problem 3} \\
+See Jupyter notebook for code and numerical results. \\
+As $n$ increases, the problem becomes more ill-conditioned, as seen in the increasing $\kappa_2$ value.  As a result, the difference between the actual solution and computed solution increases as $n$ increases.
+\\
+
+
+\textbf{Problem 4} \\
+\textbf{part i.} \\
+See Jupyter notebook for code and results. \\
+
+\textbf{part ii.} \\
+See Jupyter notebook for code and results. \\
+
+\textbf{part iii.} \\
+For part i, $\gamma^2-4\delta < 0$ so eqn 10 is used.
+\begin{align*}
+y(x) &= e^{\mu x}\hbox{sin}(\theta x)\frac{s-\mu \alpha}{\theta} + e^{\mu x} \hbox{cos}(\theta x) \alpha \\
+\frac{\partial y}{\partial s} &= \frac{1}{\theta}e^{\mu x}\hbox{sin}(\theta x) 
+\end{align*}
+At the boundary condition $y(10)$, and with $\alpha = 0, \beta = 1, \gamma = 1, \delta = 1$
+\begin{equation*}
+\frac{\partial y(10)}{\partial s} = 5.39e-3
+\end{equation*}
+(See Jupyter notebook for calculation.)
+For part ii, $\gamma^2-4\delta \geq 0$ so eqn 9 is used.
+\begin{align*}
+y(x) &= e^{\lambda_1 x} \frac{\lambda_2 \alpha - s}{\lambda_2 - \lambda_1} + e^{\lambda_2 x} \frac{s - \lambda_1 \alpha}{\lambda_2 - \lambda_1} \\
+\frac{\partial y}{\partial s} &= \frac{-e^{\lambda_1 x} + e^{\lambda_2 x}}{\lambda_2 - \lambda_1} 
+\end{align*}
+Plugging in the values from part ii, $\alpha = 0, \beta = 1, \gamma = -2, \delta = -2$, the partial derivative at the boundary condition $y(10)$ is
+\begin{equation*}
+\frac{\partial y(10)}{\partial s} = 2.12e11
+\end{equation*}
+(See Jupyter notebook for calculation.) \\
+For linear systems, the derivative is also the absolute condition number of the problem.  In part ii, the condition number is very high, which means small perturbations in the data lead to large errors in the solution.
+\\
+
+
+\textbf{Problem 5} \\
+\textbf{part i} \\
+Since $x_1 = x_{j+1} - x_j = 1$, eqn 18a can be rewritten as:
+\begin{equation*}
+\hbox{exp}\begin{pmatrix} 0 & 1 \\ -\delta & -\gamma \end{pmatrix} \begin{pmatrix} \alpha\\ s_{2,0} \end{pmatrix} = \begin{pmatrix} s_{1,1} \\ s_{2,1} \end{pmatrix}
+\end{equation*}
+Let 
+\begin{equation*}
+E = \hbox{exp}\begin{pmatrix} 0 & 1 \\ -\delta & -\gamma \end{pmatrix} = \begin{pmatrix} e_{1,1} & e_{1,2} \\ e_{2,1} & e_{2,2} \end{pmatrix} 
+\end{equation*}
+then eqn 18a can be rewritten as the series
+\begin{align*}
+& e_{1,2} s_{2,0} - s_{1,1} = e_{1,1} \alpha \\
+& e_{2,2} s_{2,0} - s_{2,1} = e_{2,1} \alpha
+\end{align*}
+Similarly, eqn 18b can be rewritten as the series
+\begin{align*}
+& e_{1,1} s_{1,j} + e_{1,2} s_{2,j} - s_{1, j+1} = 0 \\
+& e_{2,1} s_{1,j} + e_{2,2} s_{2,j} - s_{2, j+1} = 0
+\end{align*}
+Finally eqn 18c can be rewritten as 
+\begin{equation*}
+e_{1,1} s_{1,9} + e_{1,2} s_{2,9} = \beta
+\end{equation*}
+With these equations, the problem can be written in the form $\boldsymbol{A}x = b$ where 
+\begin{align*}
+x &= (s_{2,0}, s_{1,1}, s_{2,1}, s_{1,2}, s_{2,2}, s_{1,3}, s_{2,3}, s_{1,4}, s_{2,4}, s_{1,5}, s_{2,5}, s_{1,6}, s_{2,6}, s_{1,7}, s_{2,7}, s_{1,8}, s_{2,8}, s_{1,9}, s_{2,9})^T \\
+b &= (-e_{1,1} \alpha, -e_{2,1} \alpha, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, \beta)^T \\
+\boldsymbol{A} &=
+  \begin{bsmallmatrix}
+	e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 & 0 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 & 0 & 0 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} & -1 & 0 \\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{2,1} & e_{2,2} & 0 & -1 \\
+	0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & e_{1,1} & e_{1,2} \\
+	\end{bsmallmatrix}
+\end{align*}
+See Python code for solution and plots. \\
+\\
+
+\textbf{part ii} \\
+Same calculations as part i.  See Jupyter notebook for code and results. \\
+\\
+
+\textbf{part iii} \\
+The condition number of matrix $A$ is 
+\begin{equation*}
+\kappa_2 = ||A||_p ||A^{-1}||_2 \approx 47.3
+\end{equation*}
+Then the perturbation of the data is $1e-8$, so the maximum error in the data is
+\begin{equation*}
+\kappa_2 \frac{||\Delta s||}{||s||} \approx 7.28e-6
+\end{equation*}
+So because the condition number is relatively small, this solution is not very sensitive to perturbations (especially perturbations as small as 1e-8).
+\end{document} % This is the end of the document
+
+

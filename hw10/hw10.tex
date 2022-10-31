@@ -1,0 +1,75 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 10} \\
+\textbf{11/25/2021} \\ 
+
+\textbf{Problem 1} \\
+See Jupyter notebook for code and results.
+\\
+
+
+\textbf{Problem 2} \\
+
+\textbf{part i} \\
+\begin{equation*}
+\left|\int_a^b f(x)dx -\hat{T}(h)\right| \leq \left|\int_a^b f(x)dx -T(h) + T(h) - \hat{T}(h)\right|
+\end{equation*}
+\begin{align*}
+&T(h) = \frac{h}{2}(f(a) + f(b)) + h \sum_{i=1}^{n-1}f(a+ih)  \\
+&\hat{T}(h) = \frac{h}{2}(f(a) + \delta(a) + f(b)+ \delta(b)) + h \sum_{i=1}^{n-1}(f(a+ih)+ \delta(a+ih)) \\
+&T(h) - \hat{T}(h) = \frac{h}{2}(\delta(a) + \delta(b)) + h \sum_{i=1}^{n-1}\delta(a+ih) \\
+&T(h) - \hat{T}(h) \leq \frac{h}{2}(\delta + \delta) + h \sum_{i=1}^{n-1}\delta \\
+&T(h) - \hat{T}(h) \leq (b-a)\delta \\
+&\left|\int_a^b f(x)dx -T(h)\right| \leq \frac{b-a}{12}h^2 \max_{[a,b]}|f''(x)| \\
+&\left|\int_a^b f(x)dx -\hat{T}(h)\right| \leq \frac{b-a}{12}h^2 \max_{[a,b]}|f''(x)| + (b-a)\delta
+\end{align*}
+\\
+
+\textbf{part b} \\
+\begin{equation*}
+T(h) - \hat{T}(h) = \frac{h}{2}(\delta(a) + \delta(b)) + h \sum_{i=1}^{n-1}\delta(a+ih)
+\end{equation*}
+Because the $\delta$ function is random, on average this will equal $0$. However for small sample sizes (N), there could be significant variance here.  The standard error of the mean is $\sigma/\sqrt{n}$, so to reduce the effects of the variance a value of $n$ should be chosen so that it is large enough to reduce the variance.  For example, if the goal is less than 1\% error 95\% (2 sigma) of the time, then $\sigma/\sqrt{n} = .005$.  If sigma = 1 (as it does in the matlab randn function), then $n$ would need to be  40,000. \\
+See Jupyter notebook for code and results.
+\\
+
+
+\textbf{Problem 3} \\
+
+\textbf{part i} \\
+See Jupyter notebook for code and results.  
+\\
+
+\textbf{part ii} \\
+See Jupyter notebook for code and results.  
+\\
+
+
+\textbf{Problem 4} \\
+\textbf{part i} \\
+\begin{align*}
+T_{0,0} &= T(h) = \frac{h}{2}f(a) + \frac{h}{2}f(b) \\
+T_{1,0} &= T(h/2) = \frac{h}{4}f(a) +\frac{h}{2}f(a+\frac{h}{2}) + \frac{h}{4}f(b) \\
+T_{1,1} &= T_{1,0} + \frac{1}{3}(T_{1,0} - T_{0,0}) \\
+T_{1,1} &= \frac{h}{4}f(a) +\frac{h}{2}f(a+\frac{h}{2}) + \frac{h}{4}f(b) + \frac{h}{12}f(a) +\frac{h}{6}f(a+\frac{h}{2}) + \frac{h}{12}f(b) - \frac{h}{6}f(a) - \frac{h}{6}f(b) \\
+T_{1,1} &= \frac{1}{6}f(a) + \frac{2}{3}f(a+\frac{h}{2}) + \frac{1}{6}f(b)
+\end{align*}  
+Also known as Simpson's rule.
+\\
+
+
+
+
+
+\end{document} % This is the end of the document
+
+

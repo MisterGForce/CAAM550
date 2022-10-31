@@ -1,0 +1,84 @@
+% This is a simple sample document.  For more complicated documents take a look in the excersice tab. Note that everything that comes after a % symbol is treated as comment and ignored when the code is compiled.
+
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+
+\title{Homework 1} % Sets article title
+\author{Michael Goforth} % Sets authors name
+\date{01 September 2021} % Sets date for date compiled
+
+% The preamble ends with the command \begin{document}
+\begin{document} % All begin commands must be paired with an end command somewhere
+    \maketitle % creates title using infromation in preamble (title, author, date)
+    
+    \section{Problem 1} % creates a section
+    
+    Given equations: 
+    \begin{equation} % Creates an equation environment and is compiled as math
+    \frac{T(x,t)-T_s}{T_i-T_s}=erf(\frac{x}{2\sqrt{\alpha t}})
+    \end{equation}
+    \begin{equation}
+    \alpha = \frac{k}{\rho c_p}
+    \end{equation}
+    \begin{equation}
+    erf(t) = \frac{2}{\sqrt{\pi}} \int_0^t exp(-s^2)ds
+    \end{equation}
+    
+    
+    We want to find the temperature at depth x after a time of 60 days, or 5,184,000 seconds.  Therefore t can be treated as a constant and equation (1) can be rewritten as
+    \begin{equation}
+    \frac{T(x)-T_s}{T_i-T_s}=erf(\frac{x}{2\sqrt{\alpha t}})
+    \end{equation}
+which finds the temperature at a depth X after a fixed time t.  By rearranging we get:
+	\begin{equation}
+    T(x)=(T_i-T_s) erf(\frac{x}{2\sqrt{\alpha t}})+T_s
+    \end{equation}
+Then the depth to find the depth at which the pipe freezes (T(x)=0), we get the result:
+	\begin{equation}
+    T(x)=(T_i-T_s) erf(\frac{x}{2\sqrt{\alpha t}})+T_s = 0
+    \end{equation}
+\\
+The derivative is then:
+	\begin{equation}
+    T'(x)=\frac{d}{dx} ((T_i-T_s) erf(\frac{x}{2\sqrt{\alpha t}})+T_s)
+    \end{equation}
+    Since $T_i$, $T_s$ are constants, and substituting in eqn 3 we get:
+    \begin{equation}
+    T'(x)=(T_i-T_s) \frac{d}{dx} ( \frac{2}{\sqrt{\pi}} \int_0^{\frac{x}{2 \sqrt{\alpha t}}} exp(-s^2)ds))
+    \end{equation}
+    \begin{equation}
+    T'(x)=\frac{2}{\sqrt{\pi}}(T_i-T_s) \frac{d}{dx} (  \int_0^{\frac{x}{2 \sqrt{\alpha t}}} exp(-s^2)ds))
+    \end{equation}
+    Finally,
+    \begin{equation}
+    T'(x)=\frac{2}{\sqrt{\pi}}(T_i-T_s) exp(-(\frac{x}{2 \sqrt{\alpha t}})^2)
+    \end{equation}
+    
+\section{Problem 2}
+Given a radar reading, the US army's Counter-Rocket Artillery Mortar (C-RAM) sense and warn system is able to calculate the impact area and time of impact of an incoming threat (rocket, artillery, or mortar ordnances) is essential.  In reality, the calculations take place in 3 dimensions and consider altitude, temperature, contour of the Earth, ballistic coefficient, measurement uncertainty, and more. But the problem can be simplified to a root finding problem by considering a 2-D flat Earth and simplifying drag to a constant value based on initial velocity, air pressure, and ballistic coefficient. This results in the following equations:
+\begin{equation}
+x(t)= -\frac{1}{2} F_{dx} t^2 + v_{0x}t + x_0
+\end{equation}
+\begin{equation}
+y(t)= -\frac{1}{2} (F_{dy} + G) t^2 + v_{0y}t + y_0
+\end{equation}
+$F_d$ can be estimated in a direction $s$ as:
+\begin{equation}
+F_{ds}= \frac{\rho v_s^2 c}{BC}
+\end{equation}
+where $\rho$ is the air density, $BC$ is the ballistic coefficient, and $c$ is the drag coefficient (a constant).  To find the time until impact, given a radar report giving an initial position, velocity, and ballistic coefficient: $x_0$, $y_0$, $v_{x0}$, $v_{y0}$, and $BC$ the equation in the y direction becomes
+\begin{equation}
+y(t)= \frac{1}{2} (\frac{\rho v_{y0}^2 c}{BC} - G) t^2 + v_{0y}t + y_0 = 0
+\end{equation}
+where $x_0$, $y_0$, $v_{x0}$, $v_{y0}$, and $BC$ ($BC$ measured in units of kg/m$^2$) are given from the radar, $G = 9.81$ m/s$^2$ is the gravitational constant, $rho=1.241$ kg/m$^3$ is the density of air, and $c=2.00$ as the drag coefficient.  The root of this function can then be plugged into the $x(t)$ function to determine the impact point.
+\\
+\\
+The derivative of $y(t)$ is:
+\begin{equation}
+y'(t)=(\frac{\rho v_{y0}^2 c}{BC} - G) t + v_{0y}
+\end{equation}
+
+
+\end{document} % This is the end of the document
+

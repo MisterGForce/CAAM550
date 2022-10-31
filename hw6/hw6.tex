@@ -1,0 +1,116 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 6} \\
+\textbf{10/06/2021} \\ 
+
+\textbf{Problem 1} \\
+\textbf{part a} \\
+Using the SVD, the linear system $Ax=b$ becomes
+\begin{align*}
+U\Sigma V^T x = b \\
+U^T U \Sigma V^T x = U^T b\\
+\Sigma^{-1} \Sigma V^T x = \Sigma^{-1} U^T b \\
+V V^T x = V \Sigma^{-1} U^T b \\
+x = V \Sigma^{-1} U^T b \\
+\end{align*}
+
+\textbf{part b} \\
+\begin{align*}
+\tilde{x} = V \Sigma^{-1} U^T (b + \delta) \\
+\tilde{x} = V \Sigma^{-1} U^T b + V \Sigma^{-1} U^T \delta \\
+\tilde{x} = x + V \Sigma^{-1} U^T \delta \\
+\tilde{x} - x = V \Sigma^{-1} U^T \delta \\
+\end{align*}
+
+\textbf{part c} \\
+\begin{align*}
+||\epsilon||_2 = ||V \Sigma^{-1} U^T \delta||_2 \\
+||\epsilon||_2 \leq ||V||_2 ||\Sigma^{-1}||_2 ||U^T||_2 ||\delta||_2 \\
+||\epsilon||_2 \leq ||\Sigma^{-1}||_2 ||\delta||_2 
+\end{align*}
+Then because $\sigma_1 \geq \sigma_2 \geq \ldots \sigma_n > 0$, then also $\sigma_n^{-1} \geq ... \geq \sigma_1 > 0$.  This means that $||\Sigma^{-1}||_2 = \sigma_n^{-1}$ and leaves
+\begin{equation*}
+||\epsilon||_2 \leq \sigma_n^{-1} ||\delta||_2
+\end{equation*}
+\\
+
+\textbf{part d} \\
+See Jupyter notebook for code and results. \\
+Results fit the bound described in part c.
+\\
+\\
+
+
+\textbf{Problem 2} \\
+See Jupyter notebook for code and results. \\
+\textbf{Brazil}: Flag is blurry but recognizable at rank 10.  At rank 20 the words become legible.  At rank 50 the words are clear and flag are clear, but there are some slight artifacts still in the background.  At rank 100 the flag is indistinguishable (at least to the naked eye) from the original picture. \\
+\textbf{Iran}: This flag is simpler than the Brazilian flag but is still very complicated.  The flag can begin to be made out at rank 5 but is very blurry.  The rank 30 approximation is indistinguishable from the original to the naked eye.
+\textbf{Uruguay}:  Similar to the Iranian flag, the flag of Uruguay is distinguishable, albeit very blurry with a rank 5 approximation.  The sun logo in the top left corner takes many ranks to deblur, but a rank 30 approximation is once again indistinguishable from the original to the naked eye. \\
+\\
+
+
+\textbf{Problem 3} \\
+\textbf{part i} \\
+See Jupyter notebook for code and results. \\
+From the first plot, it is easy to see that as the singular values decrease, the $u_i^T g^{err}$ becomes much greater than $u_i^T g^{true}$.  The recovered image $f=K^{-1}g$ contains all of these magnified errors from the small singular values, so the approximation is poor.  A rank k approximation that does not include the smaller singular values will be more accurate (see part ii).
+
+\textbf{part ii} \\
+See Jupyter notebook for code and results. \\
+
+\textbf{part iii} \\
+See Jupyter notebook for code and results. \\
+Based on our results, this is not a good way to choose k in this case.
+
+\textbf{part iv} \\
+See Jupyter notebook for code and results. \\
+Based on our results, this is not a good way to choose k in this case.
+\\
+
+\textbf{Problem 4} \\
+\begin{align*}
+||x_k||_2  &= ||\sum^k_{i=1} \sigma_i^{-1} u_i^T b v_i ||_2 \\
+||x_k||_2  &= ||\sum^{k-1}_{i=1} \sigma_i^{-1} u_i^T b v_i + \sigma_k^{-1} u_k^T b v_k  ||_2\\
+||x_k||_2  &= ||\sum^{k-1}_{i=1} \sigma_i^{-1} u_i^T b v_i||_2 + ||\sigma_k^{-1} u_k^T b v_k  ||_2\\
+||x_k||_2  &= ||x_{k-1}||_2 + ||\sigma_k^{-1} u_k^T b v_k  ||_2 \\
+||x_k||_2 &- ||x_{k-1}||_2 = ||\sigma_k^{-1} u_k^T b v_k  ||_2
+\end{align*}
+Since the 2 norm of a vector is always greater than or equal to 0, it follows that 
+\begin{equation*}
+||x_{k-1}||_2 \leq ||x_k||_2
+\end{equation*}
+Next, 
+\begin{equation*}
+x_k = \sum_{i=1}^k \sigma_i^{-1} u_i^T b v_i = A^{-1}_k b
+\end{equation*}
+where $A^{-1}_k$ is the k-rank approximation of the inverse of matrix $A$.
+\begin{align*}
+A x_k &= A A^{-1}_k b \\
+A x_k &= \sum_{i=1}^k \sigma_i u_i v_i^T b \\
+A x_{k-1} &= \sum_{i=1}^{k-1} \sigma_i u_i v_i^T b
+\end{align*}
+Using the fact that $Ax = b$ then
+\begin{align*}
+A x_k - b &=  \sum_{i=k}^r \sigma_i u_i v_i^T b \\
+A x_{k-1} - b&= \sum_{i=k-1}^r \sigma_i u_i v_i^T b \\
+||A x_{k-1} - b||_2 &= ||\sum_{i=k-1}^r \sigma_i u_i v_i^T b||_2 \\
+||A x_{k-1} - b||_2 &= ||\sum_{i=k}^r \sigma_i u_i v_i^T b + \sigma_{k-1} u_{k-1} v_{k-1}^T b||_2 \\
+||A x_{k-1} - b||_2 &\leq ||Ax_k - b||_2 + ||\sigma_{k-1} u_{k-1} v_{k-1}^T b||_2 \\
+||A x_{k-1} - b||_2 &- ||Ax_k - b||_2 \leq ||\sigma_{k-1} u_{k-1} v_{k-1}^T b||_2 \\
+\end{align*}
+Since the 2 norm is always greater than or equal to 0, 
+\begin{equation*}
+||A x_{k-1} - b||_2 \geq ||Ax_k - b||_2
+\end{equation*}
+
+
+\end{document} % This is the end of the document
+
+

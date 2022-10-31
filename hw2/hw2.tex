@@ -1,0 +1,122 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 2} \\
+\textbf{9/8/2021} \\ 
+
+\textbf{Problem 2} \\
+\textbf{part i.} \\
+\begin{equation}
+g(x) = x - \frac{f(x)}{d}
+\end{equation}
+\\
+\textbf{part ii.} \\
+Let $x_*$ be a fixed point of $g(x)$.  Then from theorem 0.1, we can say that if $|g'(x)|<1$, the fixed point iteration $x_{k+1}=g(x_k)$ converges.  So
+\begin{equation}
+|g'(x_*)|=|1 - \frac{f'(x_*)}{d}|<1
+\end{equation}
+Removing the absolute value leads us to the following 2 equations, that must both be true:
+
+\begin{equation}
+1 - \frac{f'(x_*)}{d}<1 \textrm{ and } 1 - \frac{f'(x_*)}{d}>-1
+\end{equation}
+Then,
+\begin{equation}
+- \frac{f'(x_*)}{d}<0 \textrm{ and } - \frac{f'(x_*)}{d}>-2
+\end{equation}
+\begin{equation}
+f'(x_*)>0 \textrm{ and } f'(x_*)<2d
+\end{equation}
+Combining these gives us the condition
+\begin{equation}
+0 < f'(x_*) < 2d
+\end{equation}
+which if met will guarantee that this fixed point iteration is locally convergent.
+\\
+\\
+\textbf{part iii.}
+From theorem 0.1, the sequence converges q-linearly to $x_*$ with 
+\begin{equation}
+\lim_{k\to\infty} \frac{|x_{k+1}-x_*|}{|x_k-x_*|} = |g'(x_*)|=|1 - \frac{f'(x_*)}{d}|<1
+\end{equation}
+(See part iv. for special case where iteration converges quadratically.)
+\\
+\\
+\textbf{part iv.}
+From theorem 0.2, since $f$ is twice continuously differentiable, if 
+\begin{equation}
+g'(x_*)=0
+\end{equation}
+then the fixed point iteration converges to $x_*$ with q-order 2 (quadratic convergence).  So
+\begin{equation}
+g'(x_*)=1 - \frac{f'(x_*)}{d}=0
+\end{equation}
+\begin{equation}
+\frac{f'(x_*)}{d}=1
+\end{equation}
+and finally
+\begin{equation}
+f'(x_*)=d
+\end{equation}
+\\
+\\
+\textbf{Problem 4.} \\
+\textbf{part i.} \\
+Find the derivative of function $\phi(\lambda)$ defined as:
+\begin{equation}
+\phi(\lambda) = \frac{1}{2}||Kf(\lambda)-g||_2^2-\frac{1}{2}||g-g^{true}||_2^2=0
+\end{equation}
+where $f(\lambda)$ is defined by the equation
+\begin{equation}
+(K^TK+\lambda I)f(\lambda)=K^Tg
+\end{equation}
+Let $\phi(\lambda)$ be considered a composition of the functions $F(X)$, $G(Y)$, and $f(\lambda)$, such that 
+ \begin{equation}
+\phi(\lambda) = F(G(f(\lambda)))
+\end{equation}
+and 
+\begin{equation}
+F(X) = \frac{1}{2}x^2+c
+\end{equation}
+\begin{equation}
+G(Y) = K y - g
+\end{equation}
+Then using the matrix chain rule,
+\begin{equation}
+J_{\phi} = J_F J_G J_f
+\end{equation}
+\begin{equation}
+J_F = X^T = (K f(\lambda) - g)^T
+\end{equation}
+\begin{equation}
+J_G = K
+\end{equation}
+Using the implicit function theorem, we can define $f'(\lambda)$.  Let 
+\begin{equation}
+g(\lambda, f(\lambda)) = (K^TK+\lambda I)f(\lambda)=K^Tg
+\end{equation}
+Then by the implicit function theorem,
+\begin{equation}
+\frac{\partial g}{\partial\lambda} + \frac{\partial g}{\partial f(\lambda)}\frac{d f(\lambda)}{d \lambda} = 0
+\end{equation}
+\begin{equation}
+I f(\lambda) + (K^T K + \lambda I)\frac{d f(\lambda)}{d \lambda} = 0
+\end{equation}
+and 
+\begin{equation}
+J_f =\frac{d f(\lambda)}{d \lambda} =  -(K^T K + \lambda I)^{-1} f(\lambda)
+\end{equation}
+Finally 
+\begin{equation}
+\phi'(\lambda) = J_{\phi}(\lambda) = -(K f(\lambda) - g)^T K (K^T K + \lambda I)^{-1} f(\lambda)
+\end{equation}
+
+
+\end{document} % This is the end of the document
+
+

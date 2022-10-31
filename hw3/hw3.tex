@@ -1,0 +1,389 @@
+\documentclass{article} % \documentclass{} is the first command in any LaTeX code.  It is used to define what kind of document you are creating such as an article or a book, and begins the document preamble
+
+\usepackage{amsmath} % \usepackage is a command that allows you to add functionality to your LaTeX code
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\setlength{\parindent}{0pt}
+
+\begin{document} % All begin commands must be paired with an end command somewhere
+\textbf{Michael Goforth} \\
+\textbf{CAAM 550} \\
+\textbf{HW 3} \\
+\textbf{9/15/2021} \\ 
+
+\textbf{Problem 1} \\
+\begin{equation}
+Ex = \frac{1}{2}(x + Fx) 
+\end{equation}
+For a vector $x = (x_1, x_2, ..., x_n)^T$, 
+\begin{equation}
+Ex = \frac{1}{2}(I + F)x
+\end{equation}
+\begin{equation}
+E = \frac{1}{2}(I + F)
+\end{equation}
+\begin{equation}
+E^2 = \frac{1}{4}(I + F)(I + F)
+\end{equation}
+\begin{equation}
+E^2 = \frac{1}{4}(I + F)(I + F)
+\end{equation}
+\begin{equation}
+E^2 = \frac{1}{4}(I + 2F + F^2)
+\end{equation}
+Because F simply reverses the order of the elements in $x$, $F^2$ reverses the already reversed vector and $F^2 = I$.  So
+\begin{equation}
+E^2 = \frac{1}{4}(I + 2F + I) = \frac{1}{2}(I + F) = E
+\end{equation}
+Since $E^2=E$, the matrix E is a projector.
+\begin{equation}
+E^T = \frac{1}{2}(I + F)^T
+\end{equation}
+\begin{equation}
+E^T = \frac{1}{2}(I^T + F^T)
+\end{equation}
+$F$ is a matrix that reverses the order of the elements of a vector, $x$, $F$ is an anti-diagonal exchange matrix:
+\begin{equation}
+F = 
+\begin{bmatrix}
+0 & 0 & \ldots & 0 & 1 \\
+0 & 0 & \ldots & 1 & 0 \\
+0 & 1 & \ldots & 0 & 0 \\
+1 & 0 & \ldots & 0 & 0 \\
+\end{bmatrix} = F^T
+\end{equation}
+Therefore,
+\begin{equation}
+E^T = \frac{1}{2}(I + F) = E
+\end{equation}
+and E is an orthogonal projection.  
+\begin{equation}
+E = \frac{1}{2}(I + F)
+\end{equation}
+Using $F$ as shown above, then $E$ is half the sum of $I$ and $F$, or a matrix with .5 on both diagonals, 0 elsewhere, and if $n$ is odd the center term will be 1:
+\begin{equation}
+E_{i, j} = \left\{\begin{array}{cl}1,& i=j=n/2 \\
+			.5,& j = n - i + 1 \\
+			.5,& i = j \\
+			0,& \mbox{elsewhere}\end{array}\right.
+\end{equation}
+\\
+\\
+
+
+\textbf{Problem 2} \\
+\textbf{part a)} \\
+\begin{equation}
+\boldsymbol{x} = \begin{pmatrix} 5 \\ 12 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v}=\boldsymbol{x} \pm||x||_2 \boldsymbol{e_1}
+\end{equation} 
+\begin{equation}
+\boldsymbol{v}=\begin{pmatrix} 5 \\ 12 \end{pmatrix}-13 \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\end{equation} 
+\begin{equation}
+\boldsymbol{v}=\begin{pmatrix} -8 \\ 12 \end{pmatrix}
+\end{equation} 
+\begin{equation}
+\boldsymbol{H} = \boldsymbol{I} - 2 \frac{\boldsymbol{vv}^T}{||\boldsymbol{v}||_2^2}
+\end{equation}
+\begin{equation}
+\boldsymbol{H} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} - \frac{1}{104} \begin{bmatrix} 64 & -96 \\ -96 & 144 \end{bmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{H} = \begin{bmatrix} 5/13 & 12/13 \\ 12/13 & -5/13 \end{bmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{H} \boldsymbol{x} = \begin{bmatrix} 5/13 & 12/13 \\ 12/13 & -5/13 \end{bmatrix} \begin{pmatrix} 5 \\ 12 \end{pmatrix} = \begin{pmatrix} 13 \\ 0 \end{pmatrix}
+\end{equation}
+
+\textbf{part b)} \\
+\begin{equation}
+\boldsymbol{H}^T\boldsymbol{H} = \begin{bmatrix} 5/13 & 12/13 \\ 12/13 & -5/13 \end{bmatrix} \begin{bmatrix} 5/13 & 12/13 \\ 12/13 & -5/13 \end{bmatrix} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} 
+\end{equation}
+so $\boldsymbol{H}(\boldsymbol{v})$ is unitary. \\
+
+\textbf{part c)} \\
+\begin{equation}
+\boldsymbol{P} = \boldsymbol{I} - \frac{\boldsymbol{vv}^T}{||\boldsymbol{v}||_2^2}
+\end{equation}
+\begin{equation}
+\boldsymbol{P} = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} - \frac{1}{208} \begin{bmatrix} 64 & -96 \\ -96 & 144 \end{bmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{P} = \begin{bmatrix} 9/13 & 6/13 \\ 6/13 & 4/13 \end{bmatrix}
+\end{equation}
+\\
+
+\textbf{part d} \\
+See Jupyter notebook for plot and code to create plot.
+\\
+\\
+\textbf{Problem 3} \\
+\textbf{part a)} \\
+\begin{equation}
+\boldsymbol{A} = \begin{bmatrix} 1 & 2 & 3 \\ -1 & 2 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+\end{equation}
+\textbf{Step 1} \\
+\begin{equation}
+\boldsymbol{v_1} = \boldsymbol{a_1} + \mbox{sign}(a_{11})||\boldsymbol{a_1}||_2 \boldsymbol{e_1}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_1} = \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} + ||\begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix}||_2 \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_1} = \begin{pmatrix} 1 \\ -1 \\ 0 \end{pmatrix} + \sqrt{2} \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_1} = \begin{pmatrix} 1 + \sqrt{2} \\ -1 \\ 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1} = I - 2\frac{\boldsymbol{v_1v_1^T}}{||\boldsymbol{v_1}||_2^2}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_1v_1^T} = \begin{pmatrix} 1 + \sqrt{2} \\ -1 \\ 0 \end{pmatrix} \begin{pmatrix} 1 + \sqrt{2} & -1 & 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_1v_1^T} = \begin{pmatrix} 3 + 2\sqrt{2} & -1 - \sqrt{2} & 0 \\
+ -1 - \sqrt{2} & 1 & 0 \\
+  0 & 0 & 0 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+||\boldsymbol{v_1}||_2^2 = (1+\sqrt{2})^2 + 1 = 4 + 2\sqrt{2}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{pmatrix}  - \frac{2}{4 + 2\sqrt{2}} \begin{pmatrix} 3 + 2\sqrt{2} & -1 - \sqrt{2} & 0 \\
+ -1 - \sqrt{2} & 1 & 0 \\
+  0 & 0 & 0 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1} = \frac{1}{2 + \sqrt{2}} \begin{pmatrix} -1 - \sqrt{2} & 1 + \sqrt{2} & 0 \\
+ 1 + \sqrt{2} & 1 + \sqrt{2} & 0 \\
+  0 & 0 & 2 + \sqrt{2} \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\frac{-1-\sqrt{2}}{2+\sqrt{2}} = \frac{(-1-\sqrt{2})(2-\sqrt{2})}{(2+\sqrt{2})(2-\sqrt{2})}=\frac{-\sqrt2}{2}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1} = \begin{pmatrix} -\sqrt{2}/2 & \sqrt{2}/2 & 0 \\
+ \sqrt{2}/2 & \sqrt{2}/2 & 0 \\
+  0 & 0 & 1 \end{pmatrix} 
+\end{equation}
+\textbf{Step 1} \\
+\begin{equation}
+\boldsymbol{H_1 A} = \begin{pmatrix} -\sqrt{2}/2 & \sqrt{2}/2 & 0 \\
+ \sqrt{2}/2 & \sqrt{2}/2 & 0 \\
+  0 & 0 & 1 \end{pmatrix}  \begin{bmatrix} 1 & 2 & 3 \\ -1 & 2 & 1 \\ 0 & 1 & 1 \end{bmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1 A} = \begin{pmatrix} -\sqrt{2}/2-\sqrt{2}/2 & -\sqrt{2} + \sqrt{2} & -3\sqrt{2}/2+\sqrt{2}/2 \\
+ \sqrt{2}/2-\sqrt{2}/2 & \sqrt{2} + \sqrt{2} & 3\sqrt{2}/2 + \sqrt{2}/2 \\
+  0 & 1 & 1 \end{pmatrix}  
+\end{equation}
+\begin{equation}
+\boldsymbol{H_1 A} = \begin{pmatrix} -\sqrt{2} & 0 & -\sqrt{2} \\
+ 0 & 2\sqrt{2} & 2\sqrt{2}  \\
+  0 & 1 & 1 \end{pmatrix}  
+\end{equation}
+\begin{equation}
+\boldsymbol(A^{(2)}) = \begin{pmatrix} 2\sqrt{2} & 2\sqrt{2} \\ 1 & 1 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_2} = \boldsymbol{a_1^{(2)}} + \mbox{sign}(a_{11}^{(2)})||\boldsymbol{a_1^{(2)}}||_2 \boldsymbol{e_1}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_2} = \begin{pmatrix} 2\sqrt{2} \\ 1 \end{pmatrix} + ||\begin{pmatrix} 2\sqrt{2} \\ 1 \end{pmatrix}||_2 \begin{pmatrix} 1 \\ 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_2} = \begin{pmatrix} 3 + 2\sqrt{2} \\ 1 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{H_2} = I - 2\frac{\boldsymbol{v_2v_2^T}}{||\boldsymbol{v_2}||_2^2}
+\end{equation}
+\begin{equation}
+\boldsymbol{v_2v_2^T} = \begin{pmatrix} 3 + 2\sqrt{2} \\ 1 \end{pmatrix} \begin{pmatrix} 3 + 2\sqrt{2} & 1\end{pmatrix} = \begin{pmatrix} 17 + 12\sqrt{2} & 3 + 2\sqrt{2} \\ 3 + 2\sqrt{2} & 1 \end{pmatrix}
+\end{equation}
+\begin{equation}
+||\boldsymbol{v_2}||_2^2 = 9 + 12\sqrt{2} + 8 + 1 = 18 + 12\sqrt{2}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_2} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}  - \frac{2}{18 + 12\sqrt{2}}\begin{pmatrix} 17 + 12\sqrt{2} & 3 + 2\sqrt{2} \\ 3 + 2\sqrt{2} & 1 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_2} = \frac{1}{9 + 6\sqrt{2}}\begin{pmatrix} -8 - 6\sqrt{2} & -3 - 2\sqrt{2} \\ -3 - 2\sqrt{2} & 8 + 6\sqrt{2} \end{pmatrix}
+\end{equation}
+\begin{equation}
+\frac{8 + 6\sqrt{2}}{9 + 6\sqrt{2}} = \frac{8 + 6\sqrt{2}}{9 + 6\sqrt{2}} \frac{9 - 6\sqrt{2}}{9 - 6\sqrt{2}} = \frac{72 +54\sqrt{2} - 48\sqrt{2} - 72}{81 - 72} = \frac{2\sqrt{2}}{3} 
+\end{equation}
+\begin{equation}
+\frac{-3 - 2\sqrt{2}}{9 + 6\sqrt{2}} = -\frac{1}{3}
+\end{equation}
+\begin{equation}
+\boldsymbol{H_2} = \begin{pmatrix} -2\sqrt{2}/3 & -1/3 \\ -1/3 & 2\sqrt{2}/3 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\tilde{\boldsymbol{H_2}} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & -2\sqrt{2}/3 & -1/3 \\ 0 & -1/3 & 2\sqrt{2}/3 \end{pmatrix}
+\end{equation}
+\textbf{Step 3} \\
+\begin{equation}
+\boldsymbol{R} = \tilde{\boldsymbol{H_2}} \boldsymbol{H_1} \boldsymbol{A} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & -2\sqrt{2}/3 & -1/3 \\ 0 & -1/3 & 2\sqrt{2}/3 \end{pmatrix} \begin{pmatrix} -\sqrt{2} & 0 & -\sqrt{2} \\
+ 0 & 2\sqrt{2} & 2\sqrt{2}  \\
+  0 & 1 & 1 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{R} = \begin{pmatrix} -\sqrt{2} & 0 & -\sqrt{2} \\ 0 & -3 & -3 \\ 0 & 0 & 0 \end{pmatrix}
+\end{equation}
+\begin{equation}
+\boldsymbol{Q^T} = \tilde{\boldsymbol{H_2}} \boldsymbol{H_1} = \begin{pmatrix} 1 & 0 & 0 \\ 0 & -2\sqrt{2}/3 & -1/3 \\ 0 & -1/3 & 2\sqrt{2}/3 \end{pmatrix} \begin{pmatrix} -\sqrt{2}/2 & \sqrt{2}/2 & 0 \\ \sqrt{2}/2 & \sqrt{2}/2 & 0 \\ 0 & 0 & 1 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{Q^T} = \begin{pmatrix} -\sqrt{2}/2 & \sqrt{2}/2 & 0 \\ -2/3 & -2/3 & -1/3 \\ -\sqrt{2}/6 & -\sqrt{2}/6 & 2\sqrt{2}/3 \end{pmatrix} 
+\end{equation}
+\begin{equation}
+\boldsymbol{Q} = \begin{pmatrix} -\sqrt{2}/2 & -2/3 & -\sqrt{2}/6 \\ \sqrt{2}/2 & -2/3 & -\sqrt{2}/6 \\ 0 & -1/3 & 2\sqrt{2}/3 \end{pmatrix} 
+\end{equation}
+
+\textbf{part b} \\
+Confirmed. See Jupyter notebook for code and code output. \\
+\\
+\textbf{part c}\\
+Since $\boldsymbol{Q}$ is orthogonal it is full rank.  Therefore $\hbox{rank}(\boldsymbol{A}) = \hbox{rank}(\boldsymbol{QR}) = \hbox{rank}(\boldsymbol{R})$.  $ \hbox{rank}(\boldsymbol{R}) = 2$ since the rank of an upper triangular matrix is the number of non-zero rows. \\
+
+\textbf{part d} \\
+Since $\hbox{det}(\boldsymbol{AB}) = \hbox{det}(\boldsymbol{A})\hbox{det}(\boldsymbol{B})$ for any matrices $\boldsymbol{A},\boldsymbol{B}$.  So then
+\begin{equation}
+\hbox{det}(\boldsymbol{A}) = \hbox{det}(\boldsymbol{Q}) \hbox{det}(\boldsymbol{R}) = 0
+\end{equation}
+since the determinant of a triangular matrix is the product of its diagonal elements and $\hbox{det}(\boldsymbol{R}) = 0$.
+\\
+\\
+
+\textbf{Problem 4} \\
+Let $A \in \mathbb{R}^{nxn}$, have complex eigenvalues $\lambda_1, \dots \lambda_n$.  Suppose that by following the method outlined in the problem, $A_j$ converged to an upper triangular matrix $A_{\infty}$.  Since a triangular matrix must have its diagonal elements equal to its eigenvalues, $A_{\infty}$ must have non-real diagonal elements.  However, a QR factorization of a real matrix will only ever yield real matrices, so all elements of all matrices $A_j$ must also be real.  Therefore, by contradiction, it is impossible for a real matrix with complex eigenvalues to converge to a triangular matrix by this method.
+\\
+\\
+
+\textbf{Problem 5} \\
+\textbf{part i} \\
+
+\begin{equation}
+||x||_\infty = \max_{1 \leq i \leq n} |x_i| \mbox{ for a vector } \boldsymbol{x} \in \mathbb{R}^n 
+\end{equation}
+Without loss of generality, let $x_j$ be the element of $x$ whose absolute value is the greatest, so 
+\begin{equation} 
+||x||_\infty = |x_j|
+\end{equation} 
+Then 
+\begin{equation}
+||\boldsymbol{x}||_2 = (\sum_{i=1}^n (|x_i|^2))^{1/2} \mbox{ for a vector } \boldsymbol{x} \in \mathbb{R}^n 
+\end{equation}
+\begin{equation}
+||\boldsymbol{x}||_2 = (x_1^2 + x_2^2 + \ldots + x_j^2 + \ldots + x_i^2)^{1/2} 
+\end{equation}
+and since $x \in \mathbb{R}$ then $x_i^2 \geq 0$ and 
+\begin{equation} 
+||\boldsymbol{x}||_\infty = |x_j| = ((x_j)^2)^{1/2} \leq (x_1^2 + x_2^2 + \ldots + x_j^2 + \ldots + x_i^2)^{1/2}
+\end{equation} 
+and 
+\begin{equation} 
+||\boldsymbol{x}||_\infty \leq ||\boldsymbol{x}||_2
+\end{equation} 
+Further since $|x_{i \neq j}| \leq |x_j|$, 
+\begin{equation}
+||\boldsymbol{x}||_2 = (x_1^2 + x_2^2 + \ldots + x_j^2 + \ldots + x_i^2)^{1/2}  \leq (n x_j^2)^{1/2}
+\end{equation}
+\begin{equation}
+||\boldsymbol{x}||_2 = (x_1^2 + x_2^2 + \ldots + x_j^2 + \ldots + x_i^2)^{1/2}  \leq (n x_j^2)^{1/2}
+\end{equation}
+and 
+\begin{equation}
+||\boldsymbol{x}||_2 \leq \sqrt{n} ||\boldsymbol{x}||_\infty
+\end{equation}
+Thus combining equations 19 and 22 gives:
+\begin{equation}
+||\boldsymbol{x}||_\infty \leq ||\boldsymbol{x}||_2 \leq \sqrt{n} ||\boldsymbol{x}||_\infty
+\end{equation}
+\\
+
+\textbf{part ii.} \\
+Given equivalent vector norms $a$ and $b$, such that 
+\begin{equation}
+c_1||\boldsymbol{x}||_a \leq ||\boldsymbol{x}||_b \leq c_2 ||\boldsymbol{x}||_a
+\end{equation}
+The induced matrix norms defined by norms $a$ and $b$ are 
+\begin{equation}
+||A||_i := \max_{x \in \mathbb{R}^n} \frac{||Ax||_i}{||x||_i}
+\end{equation}
+for $i=a, b$.  Let $A \in \mathbb{R}^{nxn}$.  Then without loss of generality let $x_0 \in \mathbb{R}^n$ be the vector that maximizes $\frac{||Ax_0||_a}{||x_0||_a}$.  Then 
+\begin{equation}
+c_1||A x_0||_a \leq ||A x_0||_b
+\end{equation}
+\begin{equation}
+\frac{c_1}{||x_0||_a||x_0||_b}||A x_0||_a \leq \frac{1}{||x_0||_a||x_0||_b} ||A x_0||_b 
+\end{equation}
+\begin{equation}
+\frac{c_1}{||x_0||_b}||A||_a \leq \frac{1}{||x_0||_a}\frac{||A x_0||_b}{||x_0||_b}  
+\end{equation}
+\begin{equation}
+\frac{c_1||x_0||_a}{||x_0||_b}||A||_a \leq \frac{||A x_0||_b}{||x_0||_b}  \leq ||A||_b
+\end{equation}
+Similarly, if $x_1 \in \mathbb{R}^n$ is the vector that maximizes $\frac{||Ax_1||_b}{||x_1||_b}$, then
+
+\begin{equation}
+||A x_1||_b \leq c_2 ||A x_1||_a
+\end{equation}
+\begin{equation}
+\frac{1}{||x_1||_a||x_1||_b}||A x_1||_b \leq \frac{c_2}{||x_1||_a||x_1||_b} ||A x_1||_a
+\end{equation}
+\begin{equation}
+\frac{1}{||x_1||_a}||A||_b \leq \frac{c_2}{||x_1||_b}\frac{||A x_1||_a}{||x_1||_a}  
+\end{equation}
+\begin{equation}
+||A||_b \leq \frac{c_2 ||x_1||_a}{||x_1||_b}\frac{||A x_1||_a}{||x_1||_a}  \leq \frac{c_2 ||x_1||_a}{||x_1||_b} ||A||_a
+\end{equation}
+Therefore the induced matrix norms $a$ and $b$ are equivalent. \\
+
+
+\textbf{part iii.} \\
+Combining the results of part i and ii above, 
+\begin{equation}
+\frac{||x_0||_{\infty}}{||x_0||_2}||A||_{\infty} \leq ||A||_2
+\end{equation}
+where $x_0$ is the vector that maximizes the equation 
+\begin{equation}
+||A||_{\infty} := \max_{x \in \mathbb{R}^n} \frac{||Ax||_{\infty}}{||x||_{\infty}}
+\end{equation}
+Because the $\infty$ norm for a vector is simply the absolute value of the largest element in the matrix, $x_0$ is always a vector in which all elements are $\pm 1$.  Therefore $||x_0||_{\infty} = 1$ and $||x_0||_2=\sqrt{n}$, giving the result
+\begin{equation}
+\frac{1}{\sqrt{n}}||A||_{\infty} \leq ||A||_2
+\end{equation}
+Similarly,
+\begin{equation}
+||A||_2   \leq \frac{\sqrt{m} ||x_1||_{\infty}}{||x_1||_2} ||A||_{\infty}
+\end{equation}
+In general $||A||_2$ is the largest singular value of $A$, so therefore $x_1$ must be a normalized eigenvalue, meaning $||x_1||_2 = 1$ and $||x_1||_{\infty} <= 1$.  This gives the result
+\begin{equation}
+||A||_2   \leq \sqrt{m} ||x_1||_{\infty} ||A||_2 \leq \sqrt{m}||A||_{\infty}
+\end{equation}
+Combining the above results yields
+\begin{equation}
+\frac{1}{\sqrt{n}}||A||_{\infty} \leq ||A||_2 \leq \sqrt{m}||A||_{\infty}
+\end{equation}
+\\
+\textbf{part iv.} \\
+\begin{equation}
+||A||_1 := \max_{x \in \mathbb{R}^n} \frac{||Ax||_1}{||x||_1} = \max_{1 \leq j \leq n} \sum_{i=1}^m |a_{ij}|
+\end{equation}
+which is the maximum absolute sum of the columns of A.   
+\begin{equation}
+||A||_{\infty} := \max_{x \in \mathbb{R}^n} \frac{||Ax||_{\infty}}{||x||_{\infty}} = \max_{1 \leq i \leq m} \sum_{j=1}^n |a_{ij}|
+\end{equation}
+which is the maximum absolute sum of the rows of A.  Because the columns of A are the rows of $A^T$, 
+\begin{equation}
+||A||_1 = ||A^T||_{\infty}
+\end{equation}
+for any matrix $A \in \mathbb{R}^{nxn}$.
+\end{document} % This is the end of the document
+
+
